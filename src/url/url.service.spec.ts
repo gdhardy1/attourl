@@ -4,8 +4,15 @@ import { CreateUrlDto } from './dto/createUrl.dto';
 import { ConfigModule } from '../config/config.module';
 import { getModelToken } from '@nestjs/mongoose';
 
-xdescribe('UrlService', () => {
+describe('UrlService', () => {
   let service: UrlService;
+
+  class MockUrlModel {
+    constructor() {}
+    save() {
+      return 'saved';
+    }
+  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -14,7 +21,7 @@ xdescribe('UrlService', () => {
         UrlService,
         {
           provide: getModelToken('Url'),
-          useValue: {},
+          useValue: MockUrlModel,
         },
       ],
     }).compile();
@@ -23,10 +30,24 @@ xdescribe('UrlService', () => {
   });
 
   describe('shorten(url)', () => {
-    let longUrl = 'http://google.com';
+    let longUrl: string = 'http://google.com';
 
     it('should return an object in the shape of CreateUrlDto', () => {
       expect(service.shorten(longUrl)).toMatchObject(new CreateUrlDto());
+    });
+  });
+
+  describe('applyProtocol(url)', () => {
+    let regex: RegExp = new RegExp('^http://(?!=http://)');
+
+    it.each`
+      string   | url                 | expected
+      ${''}    | ${'ab.cde'}         | ${true}
+      ${'not'} | ${'ftp://ab.cde'}   | ${false}
+      ${'not'} | ${'https://ab.cde'} | ${false}
+      ${'not'} | ${'http://ab.cde'}  | ${true}
+    `('should $string apply http protocol to $url', ({ url, expected }) => {
+      expect(regex.test(service.applyProtocol(url))).toBe(expected);
     });
   });
 });

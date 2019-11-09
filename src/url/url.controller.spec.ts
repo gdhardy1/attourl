@@ -33,9 +33,12 @@ describe('Url Controller', () => {
 
       let result: CreateUrlDto = new CreateUrlDto();
 
-      const spy = jest
-        .spyOn(urlService, 'shorten')
-        .mockImplementation(() => result);
+      const spy = jest.spyOn(urlService, 'shorten').mockImplementation(
+        () =>
+          new Promise((resolve, reject) => {
+            resolve(result);
+          }),
+      );
 
       urlController.shorten(body);
 

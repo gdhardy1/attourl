@@ -16,7 +16,7 @@ export class UrlService {
     @InjectModel('Url') private readonly urlModel: Model<Url>,
   ) {}
 
-  shorten(longUrl): CreateUrlDto {
+  async shorten(longUrl): Promise<CreateUrlDto> {
     let urlCode: string = shortid.generate();
     let shortUrl: string = this.config.get('BASE_URL') + `/${urlCode}`;
     let date: string = new Date(Date.now()).toString();
@@ -24,9 +24,7 @@ export class UrlService {
 
     longUrl = this.applyProtocol(longUrl);
 
-    this.create(data);
-
-    return data;
+    return await this.create(data);
   }
 
   applyProtocol(url) {
@@ -39,6 +37,11 @@ export class UrlService {
 
   async create(createUrlDto: CreateUrlDto): Promise<Url> {
     const newUrl = new this.urlModel(createUrlDto);
+
+    try {
     return await newUrl.save();
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

@@ -17,7 +17,9 @@ export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
   @Post('/shorten')
-  shorten(@Body(new ValidationPipe()) shortenUrlDto: ShortenUrlDto): object {
-    return this.urlService.shorten(shortenUrlDto.longUrl);
+  async shorten(
+    @Body(new ValidationPipe()) shortenUrlDto: ShortenUrlDto,
+  ): Promise<object> {
+    return await this.urlService.shorten(shortenUrlDto.longUrl);
   }
 }
