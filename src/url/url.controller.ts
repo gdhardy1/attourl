@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Param, Redirect, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  ValidationPipe,
+  Param,
+  Redirect,
+  Get,
+} from '@nestjs/common';
 
 import { UrlService } from './url.service';
 
@@ -9,7 +17,7 @@ export class UrlController {
   constructor(private readonly urlService: UrlService) {}
 
   @Post('/shorten')
-  shorten(@Body() shortenUrlDto: ShortenUrlDto): object {
+  shorten(@Body(new ValidationPipe()) shortenUrlDto: ShortenUrlDto): object {
     return this.urlService.shorten(shortenUrlDto.longUrl);
   }
 }
