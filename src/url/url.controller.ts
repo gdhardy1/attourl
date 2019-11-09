@@ -10,6 +10,6 @@ export class UrlController {
 
   @Post('/shorten')
   shorten(@Body() shortenUrlDto: ShortenUrlDto): object {
-    return {};
+    return this.urlService.shorten(shortenUrlDto.longUrl);
   }
 }
