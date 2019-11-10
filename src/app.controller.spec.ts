@@ -5,25 +5,11 @@ import { ConfigModule } from './config/config.module';
 import { getModelToken } from '@nestjs/mongoose';
 import { UrlService } from './url/url.service';
 import { CreateUrlDto } from './url/dto/createUrl.dto';
+import { MockUrlModel } from './url/schemas/url.mock';
 
 describe('AppController', () => {
   let appController: AppController;
   let urlService: UrlService;
-
-  class MockUrlModel {
-    constructor() {}
-    save(): Promise<CreateUrlDto> {
-      return new Promise((resolve, reject) => {
-        resolve(new CreateUrlDto());
-      });
-    }
-
-    static findOne(query: object): Promise<CreateUrlDto> {
-      return new Promise((resolve, reject) => {
-        resolve(new CreateUrlDto());
-      });
-    }
-  }
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({

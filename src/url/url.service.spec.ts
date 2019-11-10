@@ -3,16 +3,10 @@ import { UrlService } from './url.service';
 import { CreateUrlDto } from './dto/createUrl.dto';
 import { ConfigModule } from '../config/config.module';
 import { getModelToken } from '@nestjs/mongoose';
+import { MockUrlModel } from './schemas/url.mock';
 
 describe('UrlService', () => {
   let service: UrlService;
-
-  class MockUrlModel {
-    constructor() {}
-    save() {
-      return 'saved';
-    }
-  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
