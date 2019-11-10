@@ -20,9 +20,10 @@ export class UrlService {
     let urlCode: string = shortid.generate();
     let shortUrl: string = this.config.get('BASE_URL') + `/${urlCode}`;
     let date: string = new Date(Date.now()).toString();
-    let data: CreateUrlDto = { urlCode, longUrl, shortUrl, date };
 
     longUrl = this.applyProtocol(longUrl);
+
+    let data: CreateUrlDto = { urlCode, longUrl, shortUrl, date };
 
     return await this.create(data);
   }
@@ -45,7 +46,7 @@ export class UrlService {
     }
   }
 
-  async getLongUrl(code): Promise<Url> {
+  async getLongUrl(code: string): Promise<Url> {
     try {
       let { longUrl } = await this.urlModel.findOne({ urlCode: code });
 
