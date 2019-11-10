@@ -5,6 +5,7 @@ import { ConfigModule } from './config/config.module';
 import { UrlModule } from './url/url.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from './config/config.service';
+import { UrlService } from './url/url.service';
 
 let config = new ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
 
@@ -18,6 +19,6 @@ let config = new ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
     UrlModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UrlService],
 })
 export class AppModule {}

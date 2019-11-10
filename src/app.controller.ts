@@ -1,12 +1,20 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Redirect, Param } from '@nestjs/common';
 import { AppService } from './app.service';
+import { UrlService } from './url/url.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly urlService: UrlService,
+  ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/:code')
+  @Redirect('override')
+  async getLongUrl(@Param() params): Promise<object> {
+    return {
+      url: await this.urlService.getLongUrl(params.code),
+      statusCode: 302,
+    };
   }
 }

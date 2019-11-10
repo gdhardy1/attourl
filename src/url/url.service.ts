@@ -39,7 +39,17 @@ export class UrlService {
     const newUrl = new this.urlModel(createUrlDto);
 
     try {
-    return await newUrl.save();
+      return await newUrl.save();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async getLongUrl(code): Promise<Url> {
+    try {
+      let { longUrl } = await this.urlModel.findOne({ urlCode: code });
+
+      return longUrl;
     } catch (e) {
       console.log(e);
     }
