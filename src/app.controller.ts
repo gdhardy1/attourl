@@ -9,7 +9,7 @@ export class AppController {
     private readonly urlService: UrlService,
   ) {}
 
-  @Get('/:code')
+  @Get(':code')
   @Redirect('override')
   async getLongUrl(@Param() params): Promise<object> {
     return {
