@@ -17,21 +17,21 @@ export class UrlService {
   ) {}
 
   async shorten(longUrl): Promise<CreateUrlDto> {
-    let urlCode: string = shortid.generate();
-    let shortUrl: string = this.config.get('BASE_URL') + `/${urlCode}`;
-    let date: string = new Date(Date.now()).toString();
+    const urlCode: string = shortid.generate();
+    const shortUrl: string = this.config.get('BASE_URL') + `/${urlCode}`;
+    const date: string = new Date(Date.now()).toString();
 
     longUrl = this.applyProtocol(longUrl);
 
-    let data: CreateUrlDto = { urlCode, longUrl, shortUrl, date };
+    const data: CreateUrlDto = { urlCode, longUrl, shortUrl, date };
 
     return await this.create(data);
   }
 
   applyProtocol(url) {
-    let parsed = urlParse(url);
+    const parsed = urlParse(url);
 
-    if (parsed.protocol === '') return 'http://' + url;
+    if (parsed.protocol === '') { return 'http://' + url; }
 
     return url;
   }
@@ -48,9 +48,12 @@ export class UrlService {
 
   async getLongUrl(code: string): Promise<Url> {
     try {
-      let { longUrl } = await this.urlModel.findOne({ urlCode: code });
-
-      return longUrl;
+      const document = await this.urlModel.findOne({ urlCode: code });
+      if (document) {
+        return document;
+      } else {
+        return new CreateUrlDto();
+      }
     } catch (e) {
       console.log(e);
     }

@@ -24,7 +24,7 @@ describe('UrlService', () => {
   });
 
   describe('shorten(url)', () => {
-    let longUrl: string = 'http://google.com';
+    const longUrl: string = 'http://google.com';
 
     it('should return an object in the shape of CreateUrlDto', () => {
       expect(service.shorten(longUrl)).toMatchObject(new CreateUrlDto());
@@ -32,7 +32,7 @@ describe('UrlService', () => {
   });
 
   describe('applyProtocol(url)', () => {
-    let regex: RegExp = new RegExp('^http://(?!=http://)');
+    const regex: RegExp = new RegExp('^http://(?!=http://)');
 
     it.each`
       string   | url                 | expected
