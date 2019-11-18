@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
@@ -6,10 +6,11 @@ import { UrlModule } from './url/url.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from './config/config.service';
 import { UrlService } from './url/url.service';
-import { join } from 'path';
-import { ServeStaticModule } from '@nestjs/serve-static';
+import { FileMiddleware } from './file/file.middleware';
 
-let config = new ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
+const config = new ConfigService(
+  `${process.env.NODE_ENV || 'development'}.env`,
+);
 
 @Module({
   imports: [
@@ -17,13 +18,14 @@ let config = new ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
-    }),
     ConfigModule,
     UrlModule,
   ],
   controllers: [AppController],
   providers: [AppService, UrlService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(FileMiddleware).forRoutes(AppController);
+  }
+}
