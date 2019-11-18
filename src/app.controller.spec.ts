@@ -11,6 +11,12 @@ describe('AppController', () => {
   let appController: AppController;
   let urlService: UrlService;
 
+  class MockRes {
+    sendStatus(message) {
+      return message;
+    }
+  }
+
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [ConfigModule],
@@ -31,8 +37,8 @@ describe('AppController', () => {
 
   describe('getLongUrl(urlCode)', () => {
     it('fulfills contract with UrlService', () => {
-      let code: string = 'myCode';
-      let result: CreateUrlDto = new CreateUrlDto();
+      const code: string = 'myCode';
+      const result: CreateUrlDto = new CreateUrlDto();
 
       const spy = jest.spyOn(urlService, 'getLongUrl').mockImplementation(
         () =>
@@ -41,7 +47,7 @@ describe('AppController', () => {
           }),
       );
 
-      appController.getLongUrl(code);
+      appController.getLongUrl(new MockRes(), { code });
 
       expect(spy).toHaveBeenCalled();
     });
