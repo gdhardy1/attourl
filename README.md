@@ -11,6 +11,7 @@ I used this project as a way to learn the NestJS framework. While the framework 
 - Modules, Controllers, Providers
 - Custom Providers
 - Dependency Injection
+- Middleware
 - Pipes
 - Configuration
 - Validation Pipes
