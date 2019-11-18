@@ -1,6 +1,7 @@
 import { Controller, Get, Redirect, Param, Res, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UrlService } from './url/url.service';
+import { join } from 'path';
 
 @Controller()
 export class AppController {
@@ -8,6 +9,11 @@ export class AppController {
     private readonly appService: AppService,
     private readonly urlService: UrlService,
   ) {}
+
+  @Get()
+  index(@Res() res) {
+    res.sendFile(join(__dirname, '../client/index.html'));
+  }
 
   @Get('/:code')
   async getLongUrl(@Res() res, @Param() params): Promise<object> {
