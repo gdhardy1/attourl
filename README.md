@@ -1,7 +1,7 @@
 # Attourl
 
 A url shortener service built with NestJS. Check out [Attourl](https://attourl.herokuapp.com) on Heroku.
-  
+
 ## About the Project
 
 I used this project as a way to learn the NestJS framework. While the framework itself is overkill for a simple url shortener service, the project was involved enough to cover most of the framework's core features.
@@ -85,4 +85,7 @@ Code: `302 Redirect`
 
 Redirects browser to retrieved url.
 
+<br></br>
+Code: `404 Not Found`
 
+Warns that url is not found.
