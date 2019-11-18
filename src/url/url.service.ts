@@ -31,16 +31,25 @@ export class UrlService {
   applyProtocol(url) {
     const parsed = urlParse(url);
 
-    if (parsed.protocol === '') { return 'http://' + url; }
+    if (parsed.protocol === '') {
+      return 'http://' + url;
+    }
 
     return url;
   }
 
   async create(createUrlDto: CreateUrlDto): Promise<Url> {
-    const newUrl = new this.urlModel(createUrlDto);
-
     try {
-      return await newUrl.save();
+      const document = await this.urlModel.findOne({
+        longUrl: createUrlDto.longUrl,
+      });
+
+      if (document == {}) {
+        const newUrl = new this.urlModel(createUrlDto);
+        return await newUrl.save();
+      } else {
+        return document;
+      }
     } catch (e) {
       console.log(e);
     }
