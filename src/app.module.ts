@@ -6,6 +6,8 @@ import { UrlModule } from './url/url.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from './config/config.service';
 import { UrlService } from './url/url.service';
+import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 let config = new ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
 
@@ -14,6 +16,9 @@ let config = new ConfigService(`${process.env.NODE_ENV || 'development'}.env`);
     MongooseModule.forRoot(config.get('MONGODB_URI'), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
     }),
     ConfigModule,
     UrlModule,
