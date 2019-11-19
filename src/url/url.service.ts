@@ -44,7 +44,7 @@ export class UrlService {
         longUrl: createUrlDto.longUrl,
       });
 
-      if (document == {}) {
+      if (document === null) {
         const newUrl = new this.urlModel(createUrlDto);
         return await newUrl.save();
       } else {

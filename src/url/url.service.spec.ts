@@ -44,4 +44,22 @@ describe('UrlService', () => {
       expect(regex.test(service.applyProtocol(url))).toBe(expected);
     });
   });
+
+  describe('create(urlDto)', () => {
+    it('should check for existing document before creating one', async () => {
+      expect(
+        await service.create({
+          shortUrl: 'shortUrl',
+          longUrl: 'existing',
+          urlCode: 'urlCode',
+          date: 'date',
+        }),
+      ).toStrictEqual({
+        shortUrl: 'shortUrl',
+        longUrl: 'existing',
+        urlCode: 'urlCode',
+        date: 'date',
+      });
+    });
+  });
 });
