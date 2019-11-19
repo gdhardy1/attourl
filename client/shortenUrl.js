@@ -12,14 +12,16 @@ function getShort() {
   xhr.onreadystatechange = function() {
     if (this.status == 201 && this.readyState === 4) {
       let { shortUrl } = JSON.parse(this.response);
-      console.log(shortUrl);
 
       let shortLinks = document.getElementById('shortLinks');
-      let newChild = document.createElement('a');
-      newChild.classList.add('shortLinks__link');
-      newChild.setAttribute('href', shortUrl);
-      newChild.innerHTML = shortUrl;
-      shortLinks.appendChild(newChild);
+      let aTag = document.createElement('a');
+      let divTag = document.createElement('div');
+
+      divTag.classList.add('shortLinks__link');
+      aTag.setAttribute('href', shortUrl);
+      aTag.innerHTML = shortUrl;
+      divTag.appendChild(aTag);
+      shortLinks.appendChild(divTag);
     }
   };
 }
