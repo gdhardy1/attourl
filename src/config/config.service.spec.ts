@@ -15,7 +15,6 @@ describe('ConfigService', () => {
 
   describe('ConfigService.get(arg)', () => {
     it('should return arg value from .env file', () => {
-      expect(config.get('MONGODB_URI')).toBe('TEST-Mongo-URI');
       expect(config.get('ENV')).toBe('test');
     });
   });
