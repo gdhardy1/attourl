@@ -4,17 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="output.css" />
     <title>Attourl</title>
   </head>
-  <body>
-    <div><h1>Attourl</h1></div>
-    <div>Enter a url to shorten:</div>
-    <div id="url-shortener" class="url-shortener">
-      <input id="link" class="url-shortener__link" name="longUrl" type="text" />
-      <label for="link"></label>
-      <button id="shorten" class="url-shortener__submit">Shorten</button>
+  <body class="m-auto h-screen">
+    <div
+      class="p-4 text-3xl w-full bg-indigo-500 border-b-2  border-gray-300 shadow-lg"
+    >
+      <h1 class="text-white">Attourl</h1>
     </div>
-    <div id="shortLinks" class="shortLinks"></div>
+    <div class="m-5 mb-2">Enter a url to shorten:</div>
+    <div id="url-shortener" class="url-shortener">
+      <input
+        id="link"
+        class="url-shortener__link bg-white focus:outline-none focus:shadow-outline ml-5 border border-gray-300 rounded-lg py-2 px-4 w-64 appearance-none leading-normal"
+        name="longUrl"
+        type="text"
+      />
+      <label for="link"></label>
+      <button
+        id="shorten"
+        class="url-shortener__submit ml-2 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full"
+      >
+        Shorten
+      </button>
+    </div>
+    <div
+      id="shortLinks"
+      class="shortLinks flex flex-wrap relative mt-5 border-t-2  border-gray-300"
+    >
+      <!-- <div class="ml-5 mr-5 pt-2 pb-2 flex justify-between max-w-2xl">
+        <span>Your Url</span><span>Attourl</span>
+      </div> -->
+    </div>
   </body>
   <script src="shortenUrl.js"></script>
 </html>
