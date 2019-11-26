@@ -51,6 +51,10 @@ function getShort() {
       divTag.appendChild(copyButton);
       shortLinks.appendChild(divTag);
     }
+
+    if (this.status == 400 && this.readyState === 4) {
+      alert('Invalid url');
+    }
   };
 }
 
