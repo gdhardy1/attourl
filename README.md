@@ -25,6 +25,7 @@ I used this project as a way to learn the NestJS framework. While the framework 
 - Express
 - MongoDB + Mongoose
 - Jest + Supertest
+- Tailwind CSS
 
 <br></br>
 
