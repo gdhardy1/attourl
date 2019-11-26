@@ -32,18 +32,38 @@ function getShort() {
       );
 
       divTag.innerHTML = `<span class="block overflow-hidden">${longUrl}</span><a href="${shortUrl}" class="block overflow-hidden">${shortUrl}</a>`;
-      x = '<button id="shorten" class="url-shortener__submit block bg-teal-500 hover:bg-teal-700 text-white font-bold mt-2 py-2 px-4 rounded-full">Copy</button>'
-      // aTag.classList.add('overflow-hidden', 'block');
-      // span.classList.add('overflow-hidden', 'mr-4');
-      // aTag.setAttribute('href', shortUrl);
-      // aTag.innerHTML = shortUrl;
-      // span.innerHTML = longUrl;
-      // divTag.appendChild(span);
-      // divTag.appendChild(aTag);
+      let copyButton = document.createElement('button');
+      copyButton.classList.add(
+        'url-shortener__submit',
+        'block',
+        'bg-teal-500',
+        'hover:bg-teal-700',
+        'text-white',
+        'font-bold',
+        'mt-2',
+        'py-2',
+        'px-4',
+        'rounded-full'
+      );
+      copyButton.innerHTML = 'Copy';
+
+      copyButton.addEventListener('click', copyLink);
+      divTag.appendChild(copyButton);
       shortLinks.appendChild(divTag);
     }
   };
 }
+
+const copyLink = e => {
+  let shortLink = e.target.previousSibling.innerHTML;
+
+  let textArea = document.createElement('textarea');
+  document.body.appendChild(textArea);
+  textArea.value = shortLink;
+  textArea.select();
+  document.execCommand('copy');
+  textArea.remove();
+};
 
 const shorten = document.getElementById('shorten');
 
